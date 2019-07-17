@@ -5,6 +5,7 @@ var app = require('./app'); //usar la configuracion app.js
 var port = process.env.PORT || 3999; //configirar puerto 
 
 //CONEXION A MOGODB 
+mongose.set('useFindAndModify', false); //evitar los warning al update
 mongose.Promise = global.Promise; //trabajar con promesas
 mongose.connect('mongodb://localhost:27017/api_rest_node', {useNewUrlParser: true})
         .then(() =>{
