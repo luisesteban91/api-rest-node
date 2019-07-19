@@ -1,6 +1,7 @@
 'use strict'
 
 var mongoose = require('mongoose'); //export mongose
+var mongoosePaginate = require('mongoose-paginate-v2');
 var Schema  = mongoose.Schema; // crar esquema
 
 //modelo de  COMMENT
@@ -23,6 +24,8 @@ var TopicSchema = Schema({
     comments: [CommentSchema]
 });
 
+//CArgar paginacion 
+TopicSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Topic', TopicSchema);
                                 //lowercase y plularizar el nombre
                                 //users -> documentos(schema)

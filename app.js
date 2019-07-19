@@ -10,6 +10,7 @@ var app = express();//activar el fraemworj express
 //CARGAR ARCHIVO DE RUTAS
 var user_routes = require('./routes/user');
 var topic_routes = require('./routes/topic');
+var comment_routes = require('./routes/comment');
 
 //MIDDLEWARES
 app.use(bodyParser.urlencoded({extend:false})); //configuracion necesaria para que body parse funcione
@@ -20,6 +21,7 @@ app.use(bodyParser.json()); //para convertir a json
 //REESCRIBIR RUTAS
 app.use('/api', user_routes); //midleware para añadir adelante de cada ruta "/api", a las rutas de user_routes
 app.use('/api', topic_routes); //midleware para añadir adelante de cada ruta "/api", a las rutas de topic_routes
+app.use('/api', comment_routes);
 
 
 

@@ -12,6 +12,15 @@ var UserSchema = Schema({
     role: String
 });
 
+//quitar la contraseña par no mostrarla
+UserSchema.methods.toJSON = function(){
+    var obj = this.toObject();
+    delete obj.password;
+
+    return obj;
+}
+
+//Exportar
 module.exports = mongose.model('User', UserSchema);
                                 //lowercase y plularizar el nombre
                                 //users -> documentos(schema)
