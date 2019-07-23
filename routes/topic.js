@@ -14,5 +14,6 @@ route.get('/user-topics/:user', TopicController.getTopicsByUser);
 route.get('/topic/:id', TopicController.getTopic);
 route.put('/topic/:id', md_auth.authenticated, TopicController.update);
 route.delete('/topic/:id', md_auth.authenticated, TopicController.delete);
+route.get('/search/:search', TopicController.search);
 
 module.exports = route; //exportar las rutas para poder usarlas

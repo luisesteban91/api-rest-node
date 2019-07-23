@@ -24,7 +24,7 @@ var TopicSchema = Schema({
     comments: [CommentSchema]
 });
 
-//CArgar paginacion 
+//CArgar paginacion
 TopicSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Topic', TopicSchema);
                                 //lowercase y plularizar el nombre

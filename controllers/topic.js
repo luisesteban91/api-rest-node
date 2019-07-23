@@ -247,6 +247,40 @@ var controller = {
                 topic: topicDelete
             })
         })
+    },
+
+    search: function(req, res){
+        //obtener string a buscar 
+        var searchString = req.params.search;
+
+        //find Or
+        Topic.find({ "$or": [
+            {"title": {"$regex": searchString, "$options": "i"}},
+            {"content": {"$regex": searchString, "$options": "i"}},
+            {"code": {"$regex": searchString, "$options": "i"}},
+            {"lang": {"$regex": searchString, "$options": "i"}}
+        ]})
+        .sort([['date', 'descending']])
+        .exec((err, topics) => {
+            if(err){
+                return res.status(500).send({
+                    status: 'error',
+                    message: 'Error en la peticion' 
+                });
+            }
+
+            if(!topics){
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'No hay temas disponibles'
+                });
+            }
+
+            return res.status(200).send({
+                status: 'succes',
+                topics
+            })
+        })
     }
 }
 
