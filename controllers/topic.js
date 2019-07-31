@@ -36,7 +36,7 @@ var controller = {
             var topic = new Topic();
 
             //asignar valores
-            topic.title = params.test;
+            topic.title = params.title;
             topic.content = params.content;
             topic.code = params.code;
             topic.lang = params.lang;
@@ -146,7 +146,7 @@ var controller = {
         var topicId = req.params.id;
 
         //find por id  del topic
-        Topic.findById(topicId).populate('user').exec((err, topic) => {//populate obtener el obejto de user que esta en otra entidad
+        Topic.findById(topicId).populate('user').populate('comments.user').exec((err, topic) => {//populate obtener el obejto de user que esta en otra entidad
             //devolver resultado
             if(err){
                 return res.status(200).send({
@@ -260,6 +260,7 @@ var controller = {
             {"code": {"$regex": searchString, "$options": "i"}},
             {"lang": {"$regex": searchString, "$options": "i"}}
         ]})
+        .populate('user')
         .sort([['date', 'descending']])
         .exec((err, topics) => {
             if(err){

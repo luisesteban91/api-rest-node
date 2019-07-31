@@ -196,7 +196,8 @@ var controller = {
         var userId = req.user.sub;
 
         //comprobar si el email es unico
-        if(req.user.email != params.email){
+        if(req.user.email == params.email){
+            console.log('entra aqui')
             User.findOne({email: params.email.toLowerCase()}, (err, user) =>{
             
                 if(err){
@@ -205,7 +206,7 @@ var controller = {
                     })
                 }
     
-                if(user && user.email == params.email){
+                if(user && user.email != params.email){
                     return res.status(200).send({
                         message: "El email no puede se modificado",
                     })
@@ -235,6 +236,12 @@ var controller = {
                     }) 
                 }
             })
+        }
+        if(req.user.email != params.email){
+            return res.status(200).send({
+                status: "error",
+                message: "El mail no corresponde al usuario"
+            });
         }
     },
     uploadAvatar: function(req, res){

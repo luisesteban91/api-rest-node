@@ -51,12 +51,28 @@ var controller = {
                             message: 'Error en guardar el comentario'
                         });
                     }
-
-                    //devolver una respuesta
-                    return res.status(200).send({
-                        status: 'success',
-                        topic
-                    })
+                    
+                    //find por id  del topic
+                    Topic.findById(topic._id).populate('user').populate('comments.user').exec((err, topic) => {//populate obtener el obejto de user que esta en otra entidad
+                        //devolver resultado
+                        if(err){
+                            return res.status(200).send({
+                                status: 'success',
+                                message: 'error en la peticion'
+                            }) 
+                        }
+                        if(!topic){
+                            return res.status(200).send({
+                                status: 'error',
+                                message: 'no existe tema'
+                            }) 
+                        }
+                        //devolver una respuesta
+                        return res.status(200).send({
+                            status: 'success',
+                            topic
+                        })  
+                    }); 
                 })
 
                 
@@ -155,11 +171,28 @@ var controller = {
                             message: 'Error en la peticion'
                         });
                     }
-                    //Devolver un resultado
-                    return res.status(200).send({
-                        status: 'success',
-                        topic
-                    })
+                    
+                    //find por id  del topic
+                    Topic.findById(topic._id).populate('user').populate('comments.user').exec((err, topic) => {//populate obtener el obejto de user que esta en otra entidad
+                        //devolver resultado
+                        if(err){
+                            return res.status(200).send({
+                                status: 'success',
+                                message: 'error en la peticion'
+                            }) 
+                        }
+                        if(!topic){
+                            return res.status(200).send({
+                                status: 'error',
+                                message: 'no existe tema'
+                            }) 
+                        }
+                        //devolver una respuesta
+                        return res.status(200).send({
+                            status: 'success',
+                            topic
+                        })  
+                    }); 
                 })  
             }else{
                 return res.status(404).send({
